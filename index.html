@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convite para Duda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #222831;
+      color: #eeeeee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #00adb5;
+    }
+    p, label {
+      font-size: 1.2rem;
+      margin: 15px 0;
+    }
+    button {
+      background-color: #00adb5;
+      border: none;
+      padding: 12px 24px;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #028891;
+    }
+    .hidden {
+      display: none;
+    }
+    select, input[type="text"], input[type="date"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    #resumo {
+      margin-top: 20px;
+    }
+    #contador {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      color: #ffd369;
+    }
+  </style>
+</head>
+<body>
+  <div id="pagina1">
+    <h1>Oi, Duda — a médica mais fofa, cinéfila e interessante desse multiverso 🎬💉🧠</h1>
+    <p>Esse convite é pra você que odeia terror, ama cinema e tem um humor que me faz rir mesmo quando não entendo direito 😂</p>
+    <button onclick="proximaPagina(2)">Topa um rolê com roteiro personalizado?</button>
+  </div>
+
+  <div id="pagina2" class="hidden">
+    <h1>Escolhe o dia em que a gente vai viver um mini festival sem jumpscare 🗓️🎥</h1>
+    <input type="date" id="dataEncontro" />
+    <br><br>
+    <button onclick="proximaPagina(3)">Próximo: o filme da vez</button>
+  </div>
+
+  <div id="pagina3" class="hidden">
+    <h1>Filme 🍿</h1>
+    <p>Escolhe um filme (ou gênero) sem fantasmas, por favor:</p>
+    <select id="filme">
+      <option value="Comédia romântica no Cine Panambi">Comédia romântica no Cine Panambi – porque clichê bom aquece o coração</option>
+      <option value="Drama cult ao ar livre">Drama cult ao ar livre – com direito a crítica social e céu estrelado</option>
+      <option value="Animação fofa e inteligente">Animação fofa e inteligente – tipo Soul ou Divertida Mente</option>
+      <option value="Documentário curioso sobre saúde">Documentário curioso sobre saúde – porque até no date você é médica</option>
+      <option value="Outro">Outro (digita abaixo)</option>
+    </select><br>
+    <input type="text" id="filmeOutro" placeholder="Ex: Clássico francês que ninguém viu, mas todo mundo finge que sim 🎬😅">
+    <br>
+    <button onclick="proximaPagina(4)">Agora escolhe o pós-cinema</button>
+  </div>
+
+  <div id="pagina4" class="hidden">
+    <h1>Pós-cinema 🌟</h1>
+    <p>Qual vibe você prefere depois do filme?</p>
+    <select id="role">
+      <option value="Sorveteria + papo cabeça no lago">Sorveteria + papo cabeça no lago – tipo terapia, mas com açúcar</option>
+      <option value="Café aconchegante e trocas filosóficas">Café aconchegante e trocas filosóficas – com uma xícara de sarcasmo</option>
+      <option value="Passeio leve no Parque Diva Paim">Passeio leve no Parque Diva Paim – entre patos e metáforas sobre a vida</option>
+      <option value="Pôr do sol com trilha sonora pensada pra você">Pôr do sol com trilha sonora pensada pra você – e comentários sobre o filme, claro</option>
+      <option value="Outro">Outro (digita abaixo)</option>
+    </select><br>
+    <input type="text" id="roleOutro" placeholder="Ex: Avaliar diagnósticos fictícios de Grey’s Anatomy no parque 😂">
+    <br>
+    <button onclick="proximaPagina(5)">Fechar com chave de ouro</button>
+  </div>
+
+  <div id="pagina5" class="hidden">
+    <h1>Então, Duda...</h1>
+    <p>Esse convite é pra te mostrar que dá pra misturar cinema, medicina, conversa boa e um pouquinho de romance sem susto.</p>
+    <button onclick="proximaPagina(6)">✅ Aceito, vamos nessa!</button>
+    <br><br>
+    <button onclick="alert('Poxa... mas tudo bem. Eu ainda assisto Soul sozinho 😢')">❌ Não aceito</button>
+  </div>
+
+  <div id="pagina6" class="hidden">
+    <h1>Resumo do nosso futuro encontro:</h1>
+    <div id="resumo"></div>
+    <p>Contando os segundos pra viver esse roteiro com você 🎬💛<br>Já separei a pipoca, o sorriso e um milhão de perguntas sem sentido pra te fazer.</p>
+    <br>
+    <p>Faltam: <span id="contador"></span></p>
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Filme fofo" width="200">
+  </div>
+
+  <script>
+    function proximaPagina(numero) {
+      for (let i = 1; i <= 6; i++) {
+        const pagina = document.getElementById(`pagina${i}`);
+        if (pagina) pagina.classList.add('hidden');
+      }
+      document.getElementById(`pagina${numero}`).classList.remove('hidden');
+      if (numero === 6) mostrarResumo();
+    }
+
+    function mostrarResumo() {
+      const data = document.getElementById('dataEncontro').value;
+      let filme = document.getElementById('filme').value;
+      const filmeOutro = document.getElementById('filmeOutro').value;
+      if (filme === 'Outro' && filmeOutro.trim()) filme = filmeOutro;
+
+      let role = document.getElementById('role').value;
+      const roleOutro = document.getElementById('roleOutro').value;
+      if (role === 'Outro' && roleOutro.trim()) role = roleOutro;
+
+      document.getElementById('resumo').innerHTML = `
+        <p>📅 <strong>Dia escolhido:</strong> ${data}</p>
+        <p>🎥 <strong>Filme:</strong> ${filme}</p>
+        <p>🌟 <strong>Pós-cinema:</strong> ${role}</p>
+      `;
+
+      iniciarContador(data);
+    }
+
+    function iniciarContador(dataAlvoStr) {
+      const alvo = new Date(dataAlvoStr);
+      const timer = setInterval(() => {
+        const agora = new Date();
+        const diff = alvo - agora;
+
+        if (diff <= 0) {
+          clearInterval(timer);
+          document.getElementById('contador').textContent = 'É HOJE, DUDA! 🎬❤️';
+          return;
+        }
+
+        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutos = Math.floor((diff / (1000 * 60)) % 60);
+        const segundos = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('contador').textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
